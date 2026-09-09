@@ -85,11 +85,19 @@ The four payloads keep the boundary honest: anything agent-specific that leaked 
 ## Installation
 
 ```bash
-git clone https://github.com/shftwst/agent-box ~/agent-box
+curl -fsSL https://raw.githubusercontent.com/shftwst/agent-box/main/install.sh | bash
+```
+
+The script clones agent-box to `~/.agent-box` and symlinks the four box wrappers onto PATH (`/usr/local/bin` if writable, otherwise `~/.local/bin`). Re-running it updates an existing checkout in place. Override the defaults with env vars: `AGENT_BOX_DIR` (install dir), `AGENT_BOX_BIN` (symlink target), `AGENT_BOX_REF` (branch or tag).
+
+If you'd rather not pipe a script to your shell, do the same by hand:
+
+```bash
+git clone https://github.com/shftwst/agent-box ~/.agent-box
 for box in claude-box codex-box deepseek-box pi-box; do
-  ln -sf "$HOME/agent-box/$box" "/usr/local/bin/$box"
+  ln -sf "$HOME/.agent-box/$box" "/usr/local/bin/$box"
 done
-chmod +x ~/agent-box/{claude-box,codex-box,deepseek-box,pi-box}
+chmod +x ~/.agent-box/{claude-box,codex-box,deepseek-box,pi-box}
 ```
 
 The images build automatically on first run: a shared `cage-base` first, then the selected payload image on top of it. Each rebuilds when its own inputs change (see [Architecture](#architecture-the-cage)).
