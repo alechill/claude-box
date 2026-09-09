@@ -330,3 +330,7 @@ On startup, a box does a backgrounded `git fetch` against the install dir at mos
 ```
 
 The check runs detached and adds no perceptible latency to launch; the hint disappears the next time `--upgrade` succeeds.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
